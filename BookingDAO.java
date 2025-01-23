@@ -5,7 +5,6 @@ import java.util.List;
 public class BookingDAO {
     private static final String URL = "jdbc:sqltools:cinema_reservation";
     
-    // 📌 Используем подключение через SQLTools (VS Code)
     private Connection connect() throws SQLException {
         return DriverManager.getConnection(URL);
     }

@@ -4,11 +4,13 @@ import java.util.List;
 
 public class BookingDAO {
     private static final String URL = "jdbc:sqltools:cinema_reservation";
-    
+
+    // 📌 Подключение через встроенный драйвер VS Code
     private Connection connect() throws SQLException {
         return DriverManager.getConnection(URL);
     }
 
+    // 📌 Добавление бронирования (CREATE)
     public void addBooking(Booking booking) {
         String sql = "INSERT INTO bookings (film_id, viewer_id, status) VALUES (?, ?, ?)";
 
@@ -27,6 +29,7 @@ public class BookingDAO {
         }
     }
 
+    // 📌 Получение всех бронирований (READ)
     public List<Booking> getAllBookings() {
         List<Booking> bookings = new ArrayList<>();
         String sql = "SELECT * FROM bookings";
@@ -49,38 +52,5 @@ public class BookingDAO {
         }
 
         return bookings;
-    }
-
-    public void updateBookingStatus(int bookingId, String newStatus) {
-        String sql = "UPDATE bookings SET status = ? WHERE id = ?";
-
-        try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, newStatus);
-            pstmt.setInt(2, bookingId);
-            pstmt.executeUpdate();
-
-            System.out.println("✅ Booking status updated!");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void deleteBooking(int bookingId) {
-        String sql = "DELETE FROM bookings WHERE id = ?";
-
-        try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setInt(1, bookingId);
-            pstmt.executeUpdate();
-
-            System.out.println("✅ Booking deleted!");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 }

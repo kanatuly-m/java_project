@@ -16,7 +16,7 @@
             "server": "localhost",
             "port": 5432,
             "driver": "PostgreSQL",
-            "name": "cinema_reservation",
+            "name": "PostgreSQL Local",
             "database": "cinema_reservation",
             "username": "postgres",
             "password": "14012101",

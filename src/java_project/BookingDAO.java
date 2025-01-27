@@ -1,15 +1,19 @@
 package java_project;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BookingDAO {
-    private static final String URL = "jdbc:sqltools:cinema_reservation";
+    private static final String URL = "jdbc:postgresql://localhost:5432/cinema_reservation";
+    private static final String USER = "postgres";
+    private static final String PASSWORD = "your_password";  // ⚠️ Укажи свой пароль!
 
     private Connection connect() throws SQLException {
-        return DriverManager.getConnection(URL);
+        return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 
+    // 📌 Добавление бронирования
     public void addBooking(int filmId, int viewerId, String status) {
         String sql = "INSERT INTO bookings (film_id, viewer_id, status) VALUES (?, ?, ?)";
 
@@ -28,6 +32,27 @@ public class BookingDAO {
         }
     }
 
+    // 📌 Добавление нескольких бронирований
+    public void addMultipleBookings(int filmId, List<Integer> viewerIds) {
+        String sql = "INSERT INTO bookings (film_id, viewer_id, status) VALUES (?, ?, 'reserved')";
+
+        try (Connection conn = connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            for (int viewerId : viewerIds) {
+                pstmt.setInt(1, filmId);
+                pstmt.setInt(2, viewerId);
+                pstmt.executeUpdate();
+            }
+
+            System.out.println("✅ Multiple bookings added successfully!");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // 📌 Получение всех бронирований
     public List<Booking> getAllBookings() {
         List<Booking> bookings = new ArrayList<>();
         String sql = "SELECT * FROM bookings";
@@ -52,6 +77,7 @@ public class BookingDAO {
         return bookings;
     }
 
+    // 📌 Обновление статуса бронирования
     public void updateBookingStatus(int bookingId, String newStatus) {
         String sql = "UPDATE bookings SET status = ? WHERE id = ?";
 
@@ -69,6 +95,7 @@ public class BookingDAO {
         }
     }
 
+    // 📌 Удаление бронирования
     public void deleteBooking(int bookingId) {
         String sql = "DELETE FROM bookings WHERE id = ?";
 

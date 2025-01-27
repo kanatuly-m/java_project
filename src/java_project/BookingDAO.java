@@ -6,14 +6,20 @@ import java.util.List;
 
 public class BookingDAO {
     private static final String URL = "jdbc:postgresql://localhost:5432/cinema_reservation";
-    private static final String USER = "postgres";
+    private static final String USER = "postgres";  // ⚠️ Укажи своё имя пользователя PostgreSQL
     private static final String PASSWORD = "your_password";  // ⚠️ Укажи свой пароль!
 
+    // 📌 Подключение к базе данных
     private Connection connect() throws SQLException {
+        try {
+            Class.forName("org.postgresql.Driver");  // ✅ Регистрация драйвера (важно!)
+        } catch (ClassNotFoundException e) {
+            throw new SQLException("PostgreSQL Driver not found!", e);
+        }
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 
-    // 📌 Добавление бронирования
+    // 📌 Добавление бронирования (одного билета)
     public void addBooking(int filmId, int viewerId, String status) {
         String sql = "INSERT INTO bookings (film_id, viewer_id, status) VALUES (?, ?, ?)";
 
@@ -32,7 +38,7 @@ public class BookingDAO {
         }
     }
 
-    // 📌 Добавление нескольких бронирований
+    // 📌 Добавление нескольких бронирований (групповая бронь)
     public void addMultipleBookings(int filmId, List<Integer> viewerIds) {
         String sql = "INSERT INTO bookings (film_id, viewer_id, status) VALUES (?, ?, 'reserved')";
 

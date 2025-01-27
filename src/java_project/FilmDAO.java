@@ -10,7 +10,6 @@ public class FilmDAO {
         return DriverManager.getConnection(URL);
     }
 
-ё
     public void addFilm(String title, String genre, int duration) {
         String sql = "INSERT INTO films (title, genre, duration) VALUES (?, ?, ?)";
 

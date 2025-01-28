@@ -20,6 +20,6 @@ public class FilmDAO {
     }
 
     public static void main(String[] args) {
-        addFilm("Inception", "Sci-Fi", 148);
+        addFilm("Avatar", "Sci-Fi", 162);
     }
 }

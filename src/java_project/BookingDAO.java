@@ -5,21 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookingDAO {
-    private static final String URL = "jdbc:postgresql://localhost:5432/cinema_reservation";
-    private static final String USER = "postgres";  // ⚠️ Укажи своё имя пользователя PostgreSQL
-    private static final String PASSWORD = "your_password";  // ⚠️ Укажи свой пароль!
+    private static final String URL = "jdbc:sqlite:cinema_reservation.db";  // ✅ SQLite
+    private static final String DRIVER = "org.sqlite.JDBC";  // ✅ SQLite Driver
 
     // 📌 Подключение к базе данных
     private Connection connect() throws SQLException {
         try {
-            Class.forName("org.postgresql.Driver");  // ✅ Регистрация драйвера (важно!)
+            Class.forName(DRIVER);  // ✅ Регистрация драйвера SQLite
         } catch (ClassNotFoundException e) {
-            throw new SQLException("PostgreSQL Driver not found!", e);
+            throw new SQLException("SQLite Driver not found!", e);
         }
-        return DriverManager.getConnection(URL, USER, PASSWORD);
+        return DriverManager.getConnection(URL);
     }
 
-    // 📌 Добавление бронирования (одного билета)
+    // 📌 Добавление бронирования
     public void addBooking(int filmId, int viewerId, String status) {
         String sql = "INSERT INTO bookings (film_id, viewer_id, status) VALUES (?, ?, ?)";
 
@@ -32,26 +31,6 @@ public class BookingDAO {
             pstmt.executeUpdate();
 
             System.out.println("✅ Booking added successfully!");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // 📌 Добавление нескольких бронирований (групповая бронь)
-    public void addMultipleBookings(int filmId, List<Integer> viewerIds) {
-        String sql = "INSERT INTO bookings (film_id, viewer_id, status) VALUES (?, ?, 'reserved')";
-
-        try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            for (int viewerId : viewerIds) {
-                pstmt.setInt(1, filmId);
-                pstmt.setInt(2, viewerId);
-                pstmt.executeUpdate();
-            }
-
-            System.out.println("✅ Multiple bookings added successfully!");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -81,24 +60,6 @@ public class BookingDAO {
         }
 
         return bookings;
-    }
-
-    // 📌 Обновление статуса бронирования
-    public void updateBookingStatus(int bookingId, String newStatus) {
-        String sql = "UPDATE bookings SET status = ? WHERE id = ?";
-
-        try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, newStatus);
-            pstmt.setInt(2, bookingId);
-            pstmt.executeUpdate();
-
-            System.out.println("✅ Booking status updated!");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     // 📌 Удаление бронирования

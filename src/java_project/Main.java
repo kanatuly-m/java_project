@@ -1,17 +1,21 @@
 package java_project;
+
 import java.util.Arrays;
 import java.util.List;
-import java_project.BookingDAO;  // ✅ Импортируем BookingDAO
 
 public class Main {
     public static void main(String[] args) {
         BookingDAO bookingDAO = new BookingDAO();
 
-        // 📌 Добавляем бронирование (Один билет)
+        // 📌 Добавляем бронирование
         bookingDAO.addBooking(1, 2, "reserved");
 
-        // 📌 Добавляем несколько бронирований сразу (Групповая бронь)
-        List<Integer> viewers = Arrays.asList(3, 4, 5);
-        bookingDAO.addMultipleBookings(1, viewers);
+        // 📌 Получаем список всех бронирований
+        List<Booking> bookings = bookingDAO.getAllBookings();
+        for (Booking booking : bookings) {
+            System.out.println("🎟️ Booking: Film ID = " + booking.getFilmId() + 
+                               ", Viewer ID = " + booking.getViewerId() + 
+                               ", Status = " + booking.getStatus());
+        }
     }
 }

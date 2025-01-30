@@ -1,3 +1,4 @@
+package java_project;
 
 public class Cinema extends Entity {
     private String name;

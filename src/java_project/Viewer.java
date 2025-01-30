@@ -1,3 +1,4 @@
+package java_project;
 
 public class Viewer extends Entity {
     private String name;

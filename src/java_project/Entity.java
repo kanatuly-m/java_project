@@ -1,3 +1,4 @@
+package java_project;
 
 public abstract class Entity {
     public abstract String toString();

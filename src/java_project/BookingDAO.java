@@ -1,11 +1,11 @@
-
+package java_project;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BookingDAO {
-    private static final String URL = "jdbc:sqlite:cinema_reservation.db";  // ✅ SQLite
+    private static final String URL = "jdbc:sqlite:cinema_reservation.db";  // ✅ SQLite Database
     private static final String DRIVER = "org.sqlite.JDBC";  // ✅ SQLite Driver
 
     // 📌 Подключение к базе данных
@@ -43,14 +43,15 @@ public class BookingDAO {
         String sql = "SELECT * FROM bookings";
 
         try (Connection conn = connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
                 Booking booking = new Booking(
-                    rs.getInt("film_id"),
-                    rs.getInt("viewer_id"),
-                    rs.getString("status")
+                    rs.getInt("id"),         // ✅ Убрали columnLabel:
+                    rs.getInt("film_id"),    // ✅ Убрали columnLabel:
+                    rs.getInt("viewer_id"),  // ✅ Убрали columnLabel:
+                    rs.getString("status")   // ✅ Убрали columnLabel:
                 );
                 bookings.add(booking);
             }

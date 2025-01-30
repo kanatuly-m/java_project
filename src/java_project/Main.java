@@ -21,3 +21,4 @@ public class Main {
         bookingDAO.deleteBooking(2);
     }
 }
+

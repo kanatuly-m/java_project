@@ -11,7 +11,7 @@ public class BookingDAO {
     // 📌 Подключение к базе данных
     private Connection connect() throws SQLException {
         try {
-            Class.forName(DRIVER);
+            Class.forName("org.sqlite.JDBC");
         } catch (ClassNotFoundException e) {
             throw new SQLException("SQLite Driver not found!", e);
         }

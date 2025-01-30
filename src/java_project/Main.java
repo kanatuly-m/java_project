@@ -1,20 +1,23 @@
 package java_project;
 
-import java.util.List;
-
 public class Main {
     public static void main(String[] args) {
         BookingDAO bookingDAO = new BookingDAO();
 
-        // 📌 Добавляем бронирование
-        bookingDAO.addBooking(1, 2, "reserved");
+        // ✅ Добавляем бронирование
+        bookingDAO.addBooking(1, 1, "reserved");
+        bookingDAO.addBooking(2, 2, "reserved");
 
-        // 📌 Получаем список всех бронирований
-        List<Booking> bookings = bookingDAO.getAllBookings();
-        for (Booking booking : bookings) {
-            System.out.println("🎟️ Booking: Film ID = " + booking.getFilmId() + 
-                               ", Viewer ID = " + booking.getViewerId() + 
-                               ", Status = " + booking.getStatus());
+        // ✅ Получаем все бронирования
+        System.out.println("All Bookings:");
+        for (Booking booking : bookingDAO.getAllBookings()) {
+            System.out.println(booking);
         }
+
+        // ✅ Обновляем бронирование
+        bookingDAO.updateBooking(1, "canceled");
+
+        // ✅ Удаляем бронирование
+        bookingDAO.deleteBooking(2);
     }
 }

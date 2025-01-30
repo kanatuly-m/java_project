@@ -6,7 +6,7 @@ public class Booking {
     private int viewerId;
     private String status;
 
-    // 📌 Конструктор для создания объектов Booking из базы данных
+    // 📌 Конструктор
     public Booking(int id, int filmId, int viewerId, String status) {
         this.id = id;
         this.filmId = filmId;
@@ -14,23 +14,31 @@ public class Booking {
         this.status = status;
     }
 
-    // 📌 Конструктор без ID (для новых записей)
-    public Booking(int filmId, int viewerId, String status) {
-        this.filmId = filmId;
-        this.viewerId = viewerId;
-        this.status = status;
+    // 📌 Геттеры
+    public int getId() {
+        return id;
     }
 
-    // 📌 Геттеры и сеттеры
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getFilmId() {
+        return filmId;
+    }
 
-    public int getFilmId() { return filmId; }
-    public void setFilmId(int filmId) { this.filmId = filmId; }
+    public int getViewerId() {
+        return viewerId;
+    }
 
-    public int getViewerId() { return viewerId; }
-    public void setViewerId(int viewerId) { this.viewerId = viewerId; }
+    public String getStatus() {
+        return status;
+    }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    // 📌 Красивый вывод объекта `Booking`
+    @Override
+    public String toString() {
+        return "Booking{" +
+               "id=" + id +
+               ", filmId=" + filmId +
+               ", viewerId=" + viewerId +
+               ", status='" + status + '\'' +
+               '}';
+    }
 }

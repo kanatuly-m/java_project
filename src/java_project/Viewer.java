@@ -1,37 +1,37 @@
 package java_project;
 
-public class Viewer extends Entity {
+public class Viewer {
+    private int id;
     private String name;
-    private int age;
+    private String email;
 
-    public Viewer(String name, int age) {
+    // 📌 Конструктор
+    public Viewer(int id, String name, String email) {
+        this.id = id;
         this.name = name;
-        this.age = age;
+        this.email = email;
     }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    public int getAge() { return age; }
-    public void setAge(int age) { this.age = age; }
+    // 📌 Геттеры
+    public int getId() {
+        return id;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    // 📌 Красивый вывод объекта `Viewer`
     @Override
     public String toString() {
         return "Viewer{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        Viewer viewer = (Viewer) obj;
-        return age == viewer.age && name.equals(viewer.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return name.hashCode() + age;
+               "id=" + id +
+               ", name='" + name + '\'' +
+               ", email='" + email + '\'' +
+               '}';
     }
 }

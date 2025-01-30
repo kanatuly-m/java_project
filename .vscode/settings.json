@@ -1,34 +1,15 @@
 {
     "sqltools.connections": [
         {
-            "previewLimit": 50,
-            "server": "localhost",
-            "port": 5432,
-            "driver": "PostgreSQL",
-            "name": "PG Local",
-            "database": "Cinema Ticket Reservation System",
-            "username": "postgres",
-            "password": "14012101",
-            "connectionTimeout": 30
-        },
-        {
-            "previewLimit": 50,
-            "server": "localhost",
-            "port": 5432,
-            "driver": "PostgreSQL",
-            "name": "PostgreSQL Local",
-            "database": "cinema_reservation",
-            "username": "postgres",
-            "password": "14012101",
-            "connectionTimeout": 30
+            "name": "SQLite - Java Project",
+            "driver": "SQLite",
+            "database": "java_project.db"
         }
-    ]
-}
-{
+    ],
     "java.project.referencedLibraries": [
         "lib/sqlite-jdbc-3.36.0.3.jar"
-    ]
-}
-"files.exclude": {
-    "**/*.db-journal": true
+    ],
+    "files.exclude": {
+        "**/*.db-journal": true
+    }
 }

@@ -108,3 +108,26 @@ public class FilmDAO {
         }
     }
 }
+public Film getFilmById(int id) {
+    String sql = "SELECT * FROM films WHERE id = ?";
+    Film film = null;
+
+    try (Connection conn = connect();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+        pstmt.setInt(1, id);
+        ResultSet rs = pstmt.executeQuery();
+
+        if (rs.next()) {
+            film = new Film(
+                rs.getInt("id"),
+                rs.getString("title"),
+                rs.getString("genre"),
+                rs.getInt("duration")
+            );
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return film;
+}

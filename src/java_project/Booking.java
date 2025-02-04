@@ -2,42 +2,30 @@ package java_project;
 
 public class Booking {
     private int id;
-    private int filmId;
-    private int viewerId;
+    private Film film;
+    private Viewer viewer;
     private String status;
 
     // 📌 Конструктор
-    public Booking(int id, int filmId, int viewerId, String status) {
+    public Booking(int id, Film film, Viewer viewer, String status) {
         this.id = id;
-        this.filmId = filmId;
-        this.viewerId = viewerId;
+        this.film = film;
+        this.viewer = viewer;
         this.status = status;
     }
 
     // 📌 Геттеры
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id; }
+    public Film getFilm() { return film; }
+    public Viewer getViewer() { return viewer; }
+    public String getStatus() { return status; }
 
-    public int getFilmId() {
-        return filmId;
-    }
-
-    public int getViewerId() {
-        return viewerId;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    // 📌 Красивый вывод объекта `Booking`
     @Override
     public String toString() {
         return "Booking{" +
                "id=" + id +
-               ", filmId=" + filmId +
-               ", viewerId=" + viewerId +
+               ", film=" + film.getTitle() +
+               ", viewer=" + viewer.getName() +
                ", status='" + status + '\'' +
                '}';
     }

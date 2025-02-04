@@ -2,23 +2,28 @@ package java_project;
 
 public class Main {
     public static void main(String[] args) {
+        ViewerDAO viewerDAO = new ViewerDAO();
+        FilmDAO filmDAO = new FilmDAO();
         BookingDAO bookingDAO = new BookingDAO();
 
-        // ✅ Добавляем бронирование
-        bookingDAO.addBooking(1, 1, "reserved");
-        bookingDAO.addBooking(2, 2, "reserved");
+        // ✅ Добавляем зрителей
+        viewerDAO.addViewer("John Doe");
+        viewerDAO.addViewer("Alice Smith");
 
-        // ✅ Получаем все бронирования
-        System.out.println("All Bookings:");
-        for (Booking booking : bookingDAO.getAllBookings()) {
-            System.out.println(booking);
+        // ✅ Получаем всех зрителей
+        for (Viewer v : viewerDAO.getAllViewers()) {
+            System.out.println(v);
         }
 
-        // ✅ Обновляем бронирование
-        bookingDAO.updateBooking(1, "canceled");
+        // ✅ Добавляем фильм
+        filmDAO.addFilm("Inception", "Sci-Fi", 148);
 
-        // ✅ Удаляем бронирование
-        bookingDAO.deleteBooking(2);
+        // ✅ Получаем все фильмы
+        for (Film f : filmDAO.getAllFilms()) {
+            System.out.println(f);
+        }
+
+        // ✅ Бронирование билетов
+        bookingDAO.addBooking(filmDAO.getAllFilms().get(0), viewerDAO.getAllViewers().get(0), "reserved");
     }
 }
-

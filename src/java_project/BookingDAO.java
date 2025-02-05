@@ -5,10 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookingDAO {
-    private static final String URL = "jdbc:sqlite:java_project.db"; // SQLite Database
-
+    // Подключение к SQLite
     private Connection connect() throws SQLException {
-        return DriverManager.getConnection(URL);
+        return DatabaseManager.connect();
     }
 
     // 📌 Добавление бронирования (CREATE)
@@ -40,14 +39,17 @@ public class BookingDAO {
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
-                Film film = filmDAO.getFilmById(rs.getInt("film_id")); // ✅ Исправлено
-                Viewer viewer = viewerDAO.getAllViewers().stream()
-                    .filter(v -> v.getId() == rs.getInt("viewer_id")) // ✅ Исправлено
-                    .findFirst()
-                    .orElse(null);
+                int filmId = rs.getInt("film_id");
+                int viewerId = rs.getInt("viewer_id");
 
-                bookings.add(new Booking(rs.getInt("id"), film, viewer, rs.getString("status")));
+                Film film = filmDAO.getFilmById(filmId);
+                Viewer viewer = viewerDAO.getViewerById(viewerId); // ✅ Добавил новый метод
+
+                if (film != null && viewer != null) {
+                    bookings.add(new Booking(rs.getInt("id"), film, viewer, rs.getString("status")));
+                }
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

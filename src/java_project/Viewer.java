@@ -1,6 +1,6 @@
 package java_project;
 
-public class Viewer extends Entity {
+public class Viewer {
     private int id;
     private String name;
 

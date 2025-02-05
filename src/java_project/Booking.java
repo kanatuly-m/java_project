@@ -6,7 +6,6 @@ public class Booking {
     private Viewer viewer;
     private String status;
 
-    // 📌 Конструктор
     public Booking(int id, Film film, Viewer viewer, String status) {
         this.id = id;
         this.film = film;
@@ -14,7 +13,6 @@ public class Booking {
         this.status = status;
     }
 
-    // 📌 Геттеры
     public int getId() { return id; }
     public Film getFilm() { return film; }
     public Viewer getViewer() { return viewer; }
